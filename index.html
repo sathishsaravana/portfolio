@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=7,8,edge,chrome" />
+  <link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
+  <title> Menu & Profile Card | by Qasim</title>
+</head>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Iran',Sans-Serif;
+      text-decoration: none;
+      outline: none;
+    }
+/* @font-face {
+    } */
+    body {
+      height: 100vh;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      direction: rtl;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .back {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      z-index: 2;
+      display: none;
+    }
+    .back.act {
+      display: block;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px 20px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+      color: #165160;
+    }
+    .navbar .nav-btn {
+      position: relative;
+      width: 25px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.2s ease;
+    }
+    .navbar .nav-btn div {
+      width: 100%;
+      height: 2.5px;
+      background: #165160;
+      transition: 0.2s;
+    }
+    .navbar .nav-btn:before {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 2.5px;
+      transform: translateY(-6px);
+      background: #165160;
+      transform-origin: right;
+      transition: 0.2s;
+    }
+    .navbar .nav-btn.act {
+      transform: rotate(-360deg);
+    }
+    .navbar .nav-btn.act:before {
+      transform: rotate(-40deg);
+      width: 60%;
+      right: 0;
+      border-radius: 30px;
+    }
+    .navbar .nav-btn:after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 2.5px;
+      transform: translateY(6px);
+      background: #165160;
+      transform-origin: right;
+      transition: 0.2s;
+    }
+    .navbar .nav-btn.act:after {
+      transform: rotate(40deg);
+      width: 60%;
+      right: 0;
+      border-radius: 30px;
+    }
+    .sidebar-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 260px;
+      height: 100vh;
+      background: #fff;
+      z-index: 2;
+      box-shadow: -2px 0 3px rgba(0,0,0,0.1);
+      transition: 0.2s;
+      overflow: auto;
+    }
+    .sidebar-nav.act {
+      right: 0;
+    }
+    .sidebar-nav header {
+      padding: 50px 0;
+      text-align: center;
+      background: linear-gradient(180deg,tomato,orange);
+      border-radius: 0 0 0 150px;
+    }
+    .sidebar-nav header h1 {
+      color: #fff;
+      font-size: 22px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+    .sidebar-nav .search {
+      width: 84%;
+      height: 35px;
+      border: 1px solid #165160;
+      border-radius: 35px;
+      overflow: hidden;
+      display: flex;
+      direction: ltr;
+      margin: 10px auto;
+    }
+    .sidebar-nav .search i {
+      width: 37px;
+      height: 100%;
+      background: #165160;
+      color: #fff;
+      text-align: center;
+      line-height: 33px;
+    }
+    .sidebar-nav .search input {
+      width: 175px;
+      height: 100%;
+      border: none;
+      text-align: right;
+      padding-right: 15px;
+    }
+    .sidebar-nav ul li a {
+      display: block;
+      width: 100%;
+      padding: 8px 20px;
+      color: #165160;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .sidebar-nav ul li a i {
+      float: left;
+      height: 100%;
+      font-weight: bold;
+      line-height: 30px;
+      transition: 0.3s;
+    }
+    .sidebar-nav ul li i.up {
+      transform: rotate(-180deg);
+    }
+    .sidebar-nav ul li a:hover {
+      background: tomato;
+      color: #fff;
+      transition: 0.3s;
+    }
+    .sidebar-nav ul li .drop {
+      display: none;
+    }
+    .sidebar-nav ul li .drop li a {
+      font-size: 16px;
+      padding: 5px 20px;
+      padding-right: 25px;
+      font-weight: normal;
+    }
+    .card {
+      position: relative;
+      width: 300px;
+      background: #fff;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+      border-radius: 3px;
+      text-align: center;
+      overflow: hidden;
+      border: 1px solid #fff;
+      padding-bottom: 30px;
+      color: #165160;
+      animation-delay:1s;
+    }
+    .card:before{
+      position: absolute;
+      content: '';
+      left:0;
+      top: 135px;
+      border-left: 80px solid #fff;
+      border-top: 15px solid transparent;
+      border-bottom: 0 px solid transparent;
+    }
+    .card:after{
+      position: absolute;
+      content: '';
+      right:0;
+      top: 135px;
+      border-right: 80px solid #fff;
+      border-top: 15px solid transparent;
+      border-bottom: 0 px solid transparent;
+    }
+    .card .cover {
+      width: 100%;
+      height: 150px;
+      background: url(https://dl.dropbox.com/s/ct03ed5a1zm31r7/header1.jpg?dl=0) no-repeat center;
+      background-size: cover;
+    }
+    .card .profile {
+      width: 140px;
+      height: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid #eee;
+      background-image: url(./member-4.jpg);
+      background-size: cover;
+      margin: 0 auto;
+      margin-top: -70px;
+      overflow: hidden;
+    }
+    .card h1 {
+      padding: 8px;
+      padding-bottom: 5px;
+      font-size: 22px;
+    }
+    .card .title {
+      position: relative;
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+    .card .title:before {
+      position: absolute;
+      content: '';
+      top: 12px;
+      left: 0;
+      width: 35%;
+      height: 2px;
+      background: #165160;
+      border-radius: 10px;
+    }
+    .card .title:after {
+      position: absolute;
+      content: '';
+      top: 12px;
+      right: 0;
+      width: 35%;
+      height: 2px;
+      background: #165160;
+      border-radius: 10px;
+    }
+    .card .social {
+      width: 90%;
+      margin: 5px auto;
+      display: flex;
+      justify-content: center;
+      direction: ltr;
+    }
+    .card .social a {
+      display: block;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 42px;
+      color: #165160;
+      margin: 0 4px;
+      border: 2px solid #165160;
+      border-radius: 50%;
+      font-size: 22px;
+    }
+    .card .social a:hover {
+      background: #165160;
+      color: #fff;
+      transition: 0.5s;
+    }
+@media screen and (max-width:360px) {
+      .card {
+        margin-top: 60px;
+      }
+    }
+</style>
+<body>
+  <div class="back"></div>
+  <nav class="navbar">
+    <h2>Sathish Saravana</h2>
+    <div class="nav-btn" id="nav">
+      <div></div>
+    </div>
+  </nav>
+  <div class="sidebar-nav" id="side">
+    <header>
+      <h1>Sathish Saravana</h1>
+    </header>
+    <div class="search">
+      <i class="fa fa-search"></i>
+      <input type="text" id="ser" placeholder="Search" />
+    </div>
+    <ul>
+      <li><a href="#">WEB DVELOPER</a></li>
+      <li><a href="#" id="drop">Programming Skills <i class="fa fa-angle-down"></i></a>
+        <ul class="drop">
+          <li><a href="#">HTML5</a></li>
+          <li><a href="#">CSS3</a></li>
+          <li><a href="#">JAVA SCRIPT</a></li>
+          <li><a href="#">BOOSTRAP</a></li>
+        </ul>
+      </li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Personal Info</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="https://qa-sim.netlify.app">Log Out</a></li>
+    </div>
+    <!-- end all nav-->
+    <div class="card animated bounceInUp">
+      <div class="cover">
+      </div>
+      <div class="profile">
+          <!-- <img src="./member-4.jpg" alt=""> -->
+      </div>
+      <h1>Sathish Saravana</h1>
+      <h3>Web Develaper</h3>
+      <p class="title">
+      Contact
+      </p>
+      <div class="social">
+          <a href="https://www.linkedin.com/in/sathish-saravana-45032020b/"><i class="fa fa-linkedin"></i></a>
+        <a href="https://github.com/sathishsaravana"><i class="fa fa-github"></i></a>
+        <a href="https://twitter.com/Sathish33180090"><i class="fa fa-twitter"></i></a>
+        <a href="https://www.instagram.com/qa_sim345"><i class="fa fa-instagram"></i></a>
+        <a href="https://t.me/qa_sim345"><i class="fa fa-telegram"></i></a>
+      </div>
+    </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(".nav-btn").click(()=> {
+        $(".nav-btn,.sidebar-nav,.back").toggleClass("act");
+      });
+      document.onclick = ((e)=> {
+        if (e.target.id !== 'nav' && e.target.id !== 'side' && e.target.id !== 'ser' && e.target.id !== 'drop') {
+          $(".nav-btn,.sidebar-nav,.back").removeClass("act");
+        }
+      })
+      $("#drop").click(()=> {
+        $(".drop").slideToggle(300);
+        $("#drop i").toggleClass("up")
+      })
+    </script>
+  </body>
+</html>
